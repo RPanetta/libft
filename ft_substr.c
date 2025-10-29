@@ -6,7 +6,7 @@
 /*   By: rpanetta <rpanetta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 17:23:36 by rpanetta          #+#    #+#             */
-/*   Updated: 2025/10/26 13:29:50 by rpanetta         ###   ########.fr       */
+/*   Updated: 2025/10/28 12:40:15 by rpanetta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@
 // and has a maximum length of ’len’.
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	s_len;
 	size_t	real_len;
 	char	*substr;
 	size_t	i;
 
 	if (s == NULL)
 		return (NULL);
-	s_len = ft_strlen(s);
-	if (start >= s_len)
+	if (start >= (unsigned int)ft_strlen(s))
 	{
 		substr = malloc(1);
+		if (substr == NULL)
+			return (NULL);
 		substr[0] = '\0';
 		return (substr);
 	}
-	real_len = s_len - start;
+	real_len = ft_strlen(s) - start;
 	if (real_len > len)
 		real_len = len;
 	substr = malloc(real_len + 1);

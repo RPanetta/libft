@@ -33,20 +33,21 @@ static int	ft_count_words(char const *s, char c)
 	return (count);
 }
 
-static void	ft_free_array(char **array)
+static void	ft_free_array(char ***array)
 {
 	int	i;
 
 	i = 0;
-	while (array[i] != NULL)
+	while ((*array)[i] != NULL)
 	{
-		free(array[i]);
+		free((*array)[i]);
 		i++;
 	}
-	free(array);
+	free(*array);
+	*array = NULL;
 }
 
-static void	ft_split_words(char **array, const char *s, char c, int wordcount)
+static void	ft_split_words(char ***array, const char *s, char c, int wordcount)
 {
 	int	i;
 	int	j;
@@ -64,12 +65,15 @@ static void	ft_split_words(char **array, const char *s, char c, int wordcount)
 			j++;
 			count_letters++;
 		}
-		array[i] = ft_substr(s, j - count_letters, count_letters);
-		if (array[i] == NULL)
-			return (ft_free_array(array));
+		(*array)[i] = ft_substr(s, j - count_letters, count_letters);
+		if ((*array)[i] == NULL)
+		{
+			ft_free_array(array);
+			return ;
+		}
 		i++;
 	}
-	array[i] = NULL;
+	(*array)[i] = NULL;
 }
 
 // Allocates memory (using malloc(3)) and returns an
@@ -87,13 +91,14 @@ char	**ft_split(char const *s, char c)
 	array = (char **)malloc(sizeof(char *) * (wordcount + 1));
 	if (array == NULL)
 		return (NULL);
-	ft_split_words(array, s, c, wordcount);
+	ft_split_words(&array, s, c, wordcount);
 	return (array);
 }
 
 // int main(void)
 // {
-// 	char	str[] = "JAN-FEB-MAR-APR-MAY-JUN-JUL-AUG-SEP-OCT-NOV-DEC";
+// 	// char	str[] = "JAN-FEB-MAR-APR-MAY-JUN-JUL-AUG-SEP-OCT-NOV-DEC";
+// 	char	str[] = "Hello!";
 // 	char	delimiter = '-';
 // 	char	**new;
 // 	int 	i = 0;

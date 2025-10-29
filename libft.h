@@ -6,18 +6,12 @@
 /*   By: rpanetta <rpanetta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 11:08:17 by rpanetta          #+#    #+#             */
-/*   Updated: 2025/10/26 17:44:49 by rpanetta         ###   ########.fr       */
+/*   Updated: 2025/10/27 17:09:22 by rpanetta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
 
 # include <stdio.h>
 # include <string.h>
@@ -25,6 +19,12 @@ typedef struct s_list
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}	t_list;
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
